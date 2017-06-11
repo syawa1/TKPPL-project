@@ -12,52 +12,81 @@ html
     article
 
       section
-        h2.bullet Design WEB
+        h2.bullet TKPPL Project
         ul
-          li HTML dasar dan CSS Dasar 
+          li <i>websocket</i> sederhana
+          li Dengan <i>express</i> dan <i>socket.io</i>  
 
       section
-        h2.bullet ?   
+        h3.bullet Hal pertama yang dilakukan   
         ul
-          li Apa itu WEB ?
-          li Apa itu Hyper Text Markup Language (HTML) ?
-          li Apa itu  Cascading StylesSheet (CSS) ?
+          li Membuat presentasi menggunakan <i>bespoke.js</i>
+          li ? 
+          li bagaimana caranya ? 
  
       
       section
-        h2.bullet WEB
+        h3.bullet Membuat presentasi <i>bespoke.js</i>
         ul
-          li web merupakan kumpulan dokumen masif dalam jaringan yang dapat diakses kapanpun, selama kita terkoneksi dalam jaringan tersebut
-          li Dokumen tersebut dibuka dengan software web browser seperti Chrome, Opera, Mozilla Firefox, dsb.
+          li install node.js (jika dengan windows, cukup search digoogle node.js. download lalu install)
+          li Tentukan folder yang akan dijadikan tempat installasi generator bespoke.js
+          li gunakan command prompt untuk installasi, pastikan folder tempat installasi
           
 
       section
-        h2.bullet Hyper Text Markup Language (HTML)
+        h3.bullet Ketikkan ini di command prompt
         ul
-          li HyperText Markup Language, yang lebih dikenal sebagai HTML, merupakan bahasa yang digunakan untuk membuat halaman web
-          li Terdiri dari tag elemen yang berfungsi menandai text sehingga mendapat efek tertentu, tergantung tag yang diberikan
-          li HTML dikirimkan kepada pengguna oleh web server, untuk kemudian ditampilkan oleh web browser.
+          li
+            code.language-javascript. npm install -g generator-bespoke
+          li
+            code.language-javascript. npm install -g yo
+          li
+            code.language-javascript. yo bespoke
+          li
+            code.language-javascript. npm install -g bower
+          li
+            code.language-javascript. npm install -g gulp
+          li
+            code.language-javascript. npm install && bower install
+
 
 
       section
-        h2.bullet Cascading StylesSheet (CSS)
+        h3 Untuk menjalankan server
+        code.language-javascript. gulp serve
+
+      section
+        h2.bullet Selesai ?
         ul
-          li CSS merupakan bahasa deklaratif yang sangat kompleks, sehingga intrik utamanya tidak dapat dijelaskan di dalam beberapa paragraf, seperti pada HTML
+          li untuk template dasar presentasi selesai
+          li jika ingin merubah isi presentasi, silahkan edit index.jade
+          li dan presentasi ini merupakan hasil dari langkah - langkah yang dijelaskan
+          li agar dapat di edit bersama dengan tim, maka kita perlu upload data ini ke github
 
       section
-        h2 Responsive Slides
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
-
-      section
-        h2 Bullet List
-        h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
+        h2.bullet Upload data ke github 
         ul
-          li Bullet 1
-          li Bullet 2
-          li Bullet 3
+          li Installasi  git. search di google download lalu install 
+          li Inisialisasi folder project bespoke dengan perintah CLI
+          li
+           code.language-javascript. git init
+          li agar jadi repository local
+          li Tambahkan data dari repository local ke stage dengan perintah CLI
+          li
+            code.language-javascript. git add .
+          li
+            code.language-javascript. git commit -m "ket. commit"
+          li untuk commit.
+          li
+            code.language-javascript. git remote add origin url_remote_repository_anda
+          li untuk mengarahkan repository remote.
+          li
+            code.language-javascript. git push origin master
+          li untuk upload/push data repository local ke repository remote 
+
 
       section
-        h2 Syntax Highlighting
+        h2.bullet Hal Yang dilakukan tim lain
         h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
         pre
           code.language-javascript.
