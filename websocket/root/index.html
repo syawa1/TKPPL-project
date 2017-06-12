@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ANTRIAN</title>
+<body>
+<style type="text/css">
+
+body {
+	padding-top: 150px;
+	background-color: #f2ece0; 
+}
+
+p {
+	font-family: sans-serif;
+	color: #f2ece0;
+}
+.keycode-displayb{
+	font-size: 100px;
+}
+
+.wow{
+	font-size: 20px;
+}
+
+
+.display{
+	
+	margin:auto;
+	border-radius: 40px 40px 40px 40px; 
+	padding-top: 20px;
+	text-align: center;
+	background-color: #0a1237;
+	width: 300px;
+	height: 300px;
+}
+
+button{
+	font-family: sans-serif;
+	color: #0a1237;
+	border-radius: 10px 10px 10px 10px;
+}
+
+</style>
+	<div class="display">
+    <div class="wrap" aria-live="polite" aria-atomic="true">
+    	<p class ="wew">NO ANTRIAN <br><span class="keycode-displayb"></span></p>
+     	 <p class = "wow">Silahkan ke Counter <span class="keycode-display"></span></p>      
+    </div>
+    <button onclick="reset()">RESET</button>
+  </div>
+  <script src ="/socket.io/socket.io.js"></script>
+<script>
+
+	//socket		
+	var io = io();
+	//get allbrowser area
+	var body = document.querySelector('body');
+
+	//global key
+	var key  ="";
+	//char allow to use by keypress
+	var keyCodes = {
+		48 : "0",
+		49 : "1",
+		50 : "2",
+		51 : "3",
+		52 : "4",
+		53 : "5",
+	};
+
+	var body = document.querySelector('body');
+
+	//when connect 
+	io.on("connect",function(){
+		//di localstoage bakala ada 3  backup counter sama err
+		//nah disnini saat connect cek  apa dia sebelumnya error atau tidak
+		if(localStorage.err  == true  || localStorage.err =="true"){
+			//nothing to do
+		}
+		else{
+				//set starter courn to  localstorage
+				localStorage.setItem("counter",0)
+
+				//set backup counter
+				localStorage.setItem("backupcounter",0)
+		}
+
+	})
+
+
+	//ini method yang digunakan untuk ambil ascii
+	
+	body.onkeydown = function (e) {
+		if ( !e.metaKey ) {
+			e.preventDefault();
+		}
+		
+		key  =  keyCodes[e.keyCode] || "";
+		if(key  != ""){
+			io.emit('msg', {
+               number : key,
+               antrian :parseInt(localStorage.counter)
+            });
+		}
+	}
+
+	//set update number to view
+	//ketika pesan hasil trigger di terima untuk update aku selalu set counter 0
+	//sementara backeup adalah nilai yang sekakarang
+	io.on('newmsg',function(data){
+		document.querySelector('.keycode-display').innerHTML = data.number;
+		document.querySelector('.keycode-displayb').innerHTML = data.antrian;
+		localStorage.setItem("counter",0)
+		localStorage.setItem("backupcounter",data.antrian)
+		localStorage.setItem("err",false)
+	})
+
+	//save value when socket error  or off
+
+	//jad ketika server mati nilai so backup di copy ke counter
+	//dam status err di munculkan  (server mati adalah kondisi dimana socket mati tapi
+	//masih ada client yang terhubung ) begitu bolak balik pal :D
+	io.on('connect_error', function(err) {
+		localStorage.setItem("counter",localStorage.backupcounter)
+		localStorage.setItem("err",true)
+	});
+
+	//reset
+	var reset  = function(){
+		localStorage.setItem("counter",0)
+		localStorage.setItem("backupcounter",0)
+		localStorage.setItem("err",false)
+		io.emit("reset",function(){
+
+		})
+	}
+</script>	
+</body>
+</html> 
